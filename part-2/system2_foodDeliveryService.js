@@ -183,3 +183,74 @@ repartidorUno.actualizarUbicacion();
 repartidorUno.completarEntrega();
 repartidorUno.actualizarEstado();
 repartidorUno.autenticacion();
+
+//Entidad base/principal Menu-----------------------------------------------------
+
+function Menu(plato) {
+  this.plato = plato;
+}
+
+//Menu Qr----------------------------------------------------------------
+
+function MenuQr(plato, url) {
+  Menu.call(this, plato);
+  this.url = url;
+}
+
+MenuQr.prototype = Object.create(Menu.prototype);
+MenuQr.prototype.constructor = MenuQr;
+
+MenuQr.prototype.generarQr = () => {
+  return console.log("Generando Menu Qr");
+};
+
+//Ejemplo/Prueba
+
+const menuQrUno = new MenuQr("Pizza", "www.kest.com");
+
+console.log(menuQrUno.generarQr());
+
+console.log(MenuQr.prototype instanceof Menu);
+console.log(Menu.prototype.isPrototypeOf(MenuQr.prototype));
+console.log(Object.getPrototypeOf(MenuQr.prototype) === Menu.prototype);
+
+//Menu Fisico----------------------------------------------------------------
+
+function MenuFisico(plato) {
+  Menu.call(this, plato);
+  this.impresion = function () {
+    return console.log("Imprimiendo menu");
+  };
+}
+
+MenuFisico.prototype = new Menu();
+
+// Ejemplo/Prueba
+
+const menuFisicoUno = new MenuFisico("Hamburguesa");
+
+menuFisicoUno.impresion();
+
+//Entidad Plato-----------------------------------------------------
+
+function Plato(nombre, precio, listaIngredientes) {
+  this.nombre = nombre;
+  this.precio = precio;
+  this.listaIngredientes = listaIngredientes;
+}
+
+//Entidad Pedido-----------------------------------------------------
+
+function Pedido(
+  cliente,
+  restaurante,
+  detallesDePedido,
+  estadoPedido,
+  direccion
+) {
+  this.cliente = cliente;
+  this.restaurante = restaurante;
+  this.detallesDePedido = detallesDePedido;
+  this.estadoPedido = estadoPedido;
+  this.direccion = direccion;
+}
